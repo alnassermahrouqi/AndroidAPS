@@ -1,4 +1,4 @@
-name: Build AndroidAPS Debug
+name: Build AndroidAPS Release
 
 on:
   workflow_dispatch:
@@ -21,11 +21,11 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    - name: Build Debug APK
-      run: ./gradlew assembleFullDebug --no-daemon
+    - name: Build Unsigned Release APK
+      run: ./gradlew assembleFullRelease -Pdisablereleasekeystorecheck --no-daemon
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: AndroidAPS-Debug-APK
+        name: AndroidAPS-Unsigned-APK
         path: app/build/outputs/apk/**/*.apk
